@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Instrumentis | Fiecare notă contează</title>
+<meta name="description" content="Instrumentis — instrumente muzicale, accesorii și echipamente audio.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- POP UP PARTE INTRARE SITE -->
+<div id="popup-termeni" class="popup-overlay">
+  <div class="popup-container">
+    <div class="popup-logo-badge">
+      <img src="assets/logo.jpg" alt="Logo InstruMentis" class="popup-logo-img">
+    </div>
+    <button id="buton-inchide" class="popup-close" aria-label="Închide">&times;</button>
+    <div class="popup-header">
+      <h2>Termeni și Condiții</h2>
+      <p class="popup-subtitle">Site-ul <strong>InstruMentis</strong> &bull; <em>Fiecare notă contează</em></p>
+    </div>
+    <div class="popup-body">
+      <p>
+        Bine ați venit pe site-ul nostru! Prin accesarea și utilizarea acestui site, sunteți de acord cu termenii și condițiile prezentate. Vă recomandăm să parcurgeți cu atenție această secțiune înainte de a utiliza serviciile și informațiile oferite.
+      </p>
+      <div class="popup-link-wrapper">
+        <a href="termeni.html" target="_blank" class="popup-link">Citește termenii și condițiile complete &rarr;</a>
+      </div>
+    </div>
+    <div class="popup-footer">
+      <button id="buton-confirma" class="popup-buton">Confirmă și continuă</button>
+    </div>
+  </div>
+</div>
+
+<div class="announcement">Livrare în România • Consultanță pentru alegerea instrumentului • Plată sigură</div>
+<header class="header">
+  <a class="brand" href="#acasa" aria-label="Instrumentis - pagina principală">
+    <img src="assets/logo.jpg" height="100" width="100" alt="Logo Instrumentis">
+  </a>
+  <nav class="nav" id="nav">
+    <a href="#acasa">Acasă</a>
+    <a href="#catalog">Catalog</a>
+    <a href="#despre">Despre noi</a>
+    <a href="#organizare">Organigramă</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-actions">
+    <button class="lang" id="langBtn">RO / EN</button>
+    <div id="google_translate_element" style="position: absolute; left: -9999px; top: -9999px;"></div>
+    
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'ro',
+          includedLanguages: 'en,ro',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+      document.getElementById('langBtn').addEventListener('click', function() {
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+          var currentLang = select.value;
+          var nextLang = (currentLang === 'en') ? 'ro' : 'en';
+          select.value = nextLang;
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+          this.textContent = (nextLang === 'en') ? 'EN / RO' : 'RO / EN';
+        } else {
+          alert('Sistemul Google Translate se încarcă. Reîncearcă într-o secundă.');
+        }
+      });
+    </script>
+
+    <button class="cart-btn" id="cartOpen">Coș <span id="cartCount">0</span></button>
+    <button class="menu" id="menuBtn" aria-label="Meniu">☰</button>
+  </div>
+</header>
+
+<main id="acasa">
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">INSTRUMENTIS • MUZICĂ • PASIUNE • PERFORMANȚĂ</p>
+    <h1>Fiecare notă <span>contează.</span></h1>
+    <p class="lead">Instrumente alese pentru cei care nu doar ascultă muzica, ci o creează.</p>
+    <div class="hero-actions">
+      <a class="btn gold" href="#catalog">Descoperă catalogul</a>
+      <a class="btn outline" href="#contact">Vorbește cu noi</a>
+    </div>
+    <div class="trust"><span>✓ Calitate</span><span>✓ Prețuri transparente</span><span>✓ Suport dedicat</span></div>
+  </div>
+  <div class="hero-art"><img src="assets/logo.jpg" alt="Chitară electrică Instrumentis"></div>
+</section>
+
+<section class="categories">
+  <div class="section-head"><p class="eyebrow">EXPLOREAZĂ</p><h2>Găsește-ți sunetul</h2></div>
+  <div class="cat-grid">
+    <button data-filter="Instrumente cu coarde"><b>01</b><span>Instrumente cu coarde</span></button>
+    <button data-filter="Instrumente cu clape"><b>02</b><span>Instrumente cu clape</span></button>
+    <button data-filter="Instrumente de suflat"><b>03</b><span>Instrumente de suflat</span></button>
+    <button data-filter="Instrumente de percuție"><b>04</b><span>Instrumente de percuție</span></button>
+    <button data-filter="Instrumente tradiționale"><b>05</b><span>Instrumente tradiționale</span></button>
+    <button data-filter="Accesorii muzicale și echipamente audio"><b>06</b><span>Accesorii muzicale și echipamente audio</span></button>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="section-head row">
+    <div><p class="eyebrow">CATALOG</p><h2>Instrumente și echipamente</h2></div>
+    <div class="filters">
+      <input id="search" type="search" placeholder="Caută un produs...">
+      <select id="filter"><option value="">Toate categoriile</option></select>
+    </div>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+  <p class="updated">Ultima actualizare a catalogului: <strong>5 noiembrie 2026</strong></p>
+</section>
+
+<section class="feature">
+  <div><p class="eyebrow">DE CE INSTRUMENTIS?</p><h2>Instrumentul potrivit schimbă felul în care cânți.</h2></div>
+  <div class="feature-list">
+    <article><b>01</b><h3>Selecție atentă</h3><p>Produse prezentate clar, cu specificații și preț vizibil.</p></article>
+    <article><b>02</b><h3>Ajutor real</h3><p>Îți explicăm diferențele dintre modele înainte de cumpărare.</p></article>
+    <article><b>03</b><h3>Experiență simplă</h3><p>Navigare rapidă, coș de cumpărături și comandă ușor de urmărit.</p></article>
+  </div>
+</section>
+
+<section class="about" id="despre">
+  <div><p class="eyebrow">DESPRE NOI</p><h2>Un magazin construit în jurul pasiunii pentru muzică.</h2></div>
+  <div>
+    <p>Instrumentis este o firmă de exercițiu dedicată instrumentelor muzicale și echipamentelor pentru artiști, elevi și pasionați.</p>
+    <p>Scopul nostru este să oferim o experiență clară: produse, prețuri, informații și suport într-un singur loc.</p>
+  </div>
+</section>
+
+<section class="org" id="organizare">
+  <div class="section-head"><p class="eyebrow">ORGANIZARE</p><h2>Organigrama Instrumentis</h2></div>
+  <div class="org-tree-container">
+    <div class="org-top-level">
+      <div class="org-box main"><b>DIRECTOR GENERAL</b></div>
+      <div class="org-box secr"><b>SECRETARIAT / ASISTENT</b></div>
+    </div>
+    <div class="org-connector-vertical"></div>
+    <div class="org-row-main">
+      <div class="org-column">
+        <div class="org-box">ACHIZIȚII ȘI LOGISTICĂ</div>
+        <div class="org-sub-list">
+          <div class="org-box sub">Relații Furnizori</div>
+          <div class="org-box sub">Gestiune / Calitate</div>
+        </div>
+      </div>
+      <div class="org-column">
+        <div class="org-box">COMERCIAL (VÂNZĂRI)</div>
+        <div class="org-sub-list">
+          <div class="org-box sub">Consultant Coarde / Suflat</div>
+          <div class="org-box sub">Consultant Clape / Percuție</div>
+          <div class="org-box sub">Admin E-Commerce</div>
+        </div>
+      </div>
+      <div class="org-column">
+        <div class="org-box">MARKETING & PR</div>
+        <div class="org-sub-list">
+          <div class="org-box sub">Social Media</div>
+          <div class="org-box sub">Evenimente</div>
+        </div>
+      </div>
+      <div class="org-column">
+        <div class="org-box">FINANCIAR-CONTABIL</div>
+        <div class="org-sub-list">
+          <div class="org-box sub">Contabilitate</div>
+        </div>
+      </div>
+      <div class="org-column">
+        <div class="org-box">RESURSE UMANE (HR)</div>
+        <div class="org-sub-list">
+          <div class="org-box sub">Evaluare & SSM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="location">
+  <div><p class="eyebrow">LOCAȚIE GEOGRAFICĂ</p><h2>Focșani, Vrancea</h2><p>Firmă de exercițiu cu activitate orientată către clienții din România.</p></div>
+  <div class="map-card" style="width: 100%; overflow: hidden; border-radius: 12px; border: 1px solid #2a2a2a;">
+    <iframe 
+        src="https://maps.google.com/maps?q=Colegiul%20Economic%20Mihail%20Kog%C4%83lniceanu%20Foc%C8%99ani&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+        width="100%" 
+        height="400" 
+        style="border:0; filter: grayscale(90%) invert(90%) contrast(120%);" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div>
+    <p class="eyebrow">CONTACT</p>
+    <h2>Ai o întrebare?</h2>
+    <p>Scrie-ne și îți răspundem cu informațiile de care ai nevoie.</p>
+    <div class="contact-details">
+      <p><b>Email</b><br>instrumentis2026@gmail.com</p>
+      <p><b>Telefon</b><br>+40 237 323 544</p>
+      <p><b>Adresă</b><br>Focșani, Bulevardul Gării 25 Vrancea, România</p> 
+    </div>
+    <b>instagram: <a href="https://www.instagram.com/instrumentis.cemk" target="_blank"><img width="20" height="20" src="assets/Insta.png" alt="Instagram"></a></b>
+  </div>
+  
+  <form id="contactForm" action="https://formsubmit.co/instrumentis2026@gmail.com" method="POST">
+    <label>Nume<input required name="name" placeholder="Numele tău"></label>
+    <label>Email<input required type="email" name="email" placeholder="email@exemplu.ro"></label>
+    <label>Mesaj<textarea required name="message" rows="5" placeholder="Cum te putem ajuta?"></textarea></label>
+    <button class="btn gold" type="submit">Trimite mesajul</button>
+    <p class="form-note" id="formNote"></p>
+  </form>
+</section>
+</main>
+
+<footer>
+  <div><img src="assets/logo.jpg" alt="Instrumentis"><p>Fiecare notă contează.</p></div>
+  <div><b>Instrumentis</b><a href="#catalog">Catalog</a><a href="#despre">Despre noi</a><a href="#contact">Contact</a></div>
+  <div>
+    <b>Informații</b>
+    <a href="termeni.html#termeni">Termeni și condiții</a>
+    <a href="termeni.html#confidentialitate">Politica de confidențialitate</a>
+    <a href="termeni.html#livrare">Livrare & retur</a>
+  </div>
+  <div><b>Unde ne găsiți</b><span>Focșani, Bulevardul Gării 25 Vrancea</span><span>România</span></div>
+  <small>© 2026 Instrumentis • Proiect educațional</small>
+</footer>
+
+<!-- SERTAR COȘ -->
+<aside class="cart" id="cart">
+  <div class="cart-head"><h2>Coșul tău</h2><button id="cartClose">&times;</button></div>
+  <div id="cartItems"></div>
+  <div class="cart-total"><span>Total</span><strong id="cartTotal">0 RON</strong></div>
+  <button class="btn gold full" id="checkout">Finalizează comanda</button>
+  <p class="secure">🔒 Comanda este o simulare educațională. Nu se efectuează plăți reale.</p>
+</aside>
+
+<div class="overlay" id="overlay"></div>
+<div class="modal" id="productModal"><button class="modal-close" id="modalClose">×</button><div id="modalContent"></div></div>
+<div class="toast" id="toast"></div>
+
+<!-- POP-UP FINALIZARE COMANDĂ -->
+<div id="checkoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding:20px;">
+    <div style="background:#141414; border:1px solid #d4af37; padding:30px; border-radius:12px; width:90%; max-width:500px; color:#fff; position:relative; margin:auto;">
+        <button id="closeCheckoutModal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:22px; cursor:pointer;">&times;</button>
+        <h2 style="color:#d4af37; margin-bottom:20px; font-size:20px;">Finalizare Comandă — InstruMentis</h2>
+        
+        <form id="checkoutForm" style="display:flex; flex-direction:column; gap:14px;">
+            <div>
+                <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Nume și Prenume</label>
+                <input type="text" id="custName" required placeholder="ex: Popescu Alexandru" style="width:100%; padding:10px; background:#222; border:1px solid #444; color:#fff; border-radius:6px; box-sizing:border-box;">
+            </div>
+            <div>
+                <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Număr de telefon (max 10 cifre)</label>
+                <input type="tel" id="custPhone" required placeholder="07xxxxxxxx" maxlength="10" style="width:100%; padding:10px; background:#222; border:1px solid #444; color:#fff; border-radius:6px; box-sizing:border-box;">
+            </div>
+
+            <!-- JUDEȚ ȘI LOCALITATE -->
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Județ</label>
+                    <select id="custCounty" required style="width:100%; padding:10px; background:#222; border:1px solid #444; color:#fff; border-radius:6px; box-sizing:border-box;">
+                        <option value="">Selectați județul</option>
+                        <option value="Alba">Alba</option>
+                        <option value="Arad">Arad</option>
+                        <option value="Argeș">Argeș</option>
+                        <option value="Bacău">Bacău</option>
+                        <option value="Bihor">Bihor</option>
+                        <option value="Bistrița-Năsăud">Bistrița-Năsăud</option>
+                        <option value="Botoșani">Botoșani</option>
+                        <option value="Brăila">Brăila</option>
+                        <option value="Brașov">Brașov</option>
+                        <option value="București">București</option>
+                        <option value="Buzău">Buzău</option>
+                        <option value="Călărași">Călărași</option>
+                        <option value="Caraș-Severin">Caraș-Severin</option>
+                        <option value="Cluj">Cluj</option>
+                        <option value="Constanța">Constanța</option>
+                        <option value="Covasna">Covasna</option>
+                        <option value="Dâmbovița">Dâmbovița</option>
+                        <option value="Dolj">Dolj</option>
+                        <option value="Galați">Galați</option>
+                        <option value="Giurgiu">Giurgiu</option>
+                        <option value="Gorj">Gorj</option>
+                        <option value="Harghita">Harghita</option>
+                        <option value="Hunedoara">Hunedoara</option>
+                        <option value="Ialomița">Ialomița</option>
+                        <option value="Iași">Iași</option>
+                        <option value="Ilfov">Ilfov</option>
+                        <option value="Maramureș">Maramureș</option>
+                        <option value="Mehedinți">Mehedinți</option>
+                        <option value="Mureș">Mureș</option>
+                        <option value="Neamț">Neamț</option>
+                        <option value="Olt">Olt</option>
+                        <option value="Prahova">Prahova</option>
+                        <option value="Sălaj">Sălaj</option>
+                        <option value="Satu Mare">Satu Mare</option>
+                        <option value="Sibiu">Sibiu</option>
+                        <option value="Suceava">Suceava</option>
+                        <option value="Teleorman">Teleorman</option>
+                        <option value="Timiș">Timiș</option>
+                        <option value="Tulcea">Tulcea</option>
+                        <option value="Vâlcea">Vâlcea</option>
+                        <option value="Vaslui">Vaslui</option>
+                        <option value="Vrancea">Vrancea</option>
+                    </select>
+                </div>
+                <div style="flex:1;">
+                    <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Localitate</label>
+                    <input type="text" id="custCity" required placeholder="ex: Focșani" style="width:100%; padding:10px; background:#222; border:1px solid #444; color:#fff; border-radius:6px; box-sizing:border-box;">
+                </div>
+            </div>
+
+            <div>
+                <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Adresă de livrare</label>
+                <input type="text" id="custAddress" required placeholder="ex: Bulevardul Gării, nr. 25" style="width:100%; padding:10px; background:#222; border:1px solid #444; color:#fff; border-radius:6px; box-sizing:border-box;">
+            </div>
+
+            <div>
+                <label style="font-size:12px; color:#aaa; display:block; margin-bottom:4px;">Metodă de plată</label>
+                <select id="custPayment" style="width:100%; padding:10px; background:#222; border:1px solid #444; color:#fff; border-radius:6px; box-sizing:border-box;">
+                    <option value="ramburs">Plată ramburs la curier (numerar)</option>
+                    <option value="card">Plată online cu cardul bancar</option>
+                </select>
+            </div>
+
+            <!-- CÂMPURI CARD AUTOMATIZATE -->
+            <div id="cardDetailsContainer" style="display:none; background:#1e1e1e; padding:15px; border-radius:8px; border:1px solid #333; gap:10px; flex-direction:column;">
+                <h4 style="color:#d4af37; font-size:13px; margin:0 0 5px 0;">Detalii Card Bancar (Securizat 3D)</h4>
+                <div>
+                    <label style="font-size:11px; color:#aaa; display:block; margin-bottom:2px;">Număr card</label>
+                    <input type="text" id="cardNumber" placeholder="4000 1234 5678 9010" maxlength="19" autocomplete="off" style="width:100%; padding:8px; background:#111; border:1px solid #444; color:#fff; border-radius:4px; box-sizing:border-box;">
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <div style="flex:1;">
+                        <label style="font-size:11px; color:#aaa; display:block; margin-bottom:2px;">Data expirării</label>
+                        <input type="text" id="cardExp" placeholder="LL/AA" maxlength="5" autocomplete="off" style="width:100%; padding:8px; background:#111; border:1px solid #444; color:#fff; border-radius:4px; box-sizing:border-box;">
+                    </div>
+                    <div style="flex:1;">
+                        <label style="font-size:11px; color:#aaa; display:block; margin-bottom:2px;">CVV / CVC</label>
+                        <input type="password" id="cardCvv" placeholder="123" maxlength="3" autocomplete="off" style="width:100%; padding:8px; background:#111; border:1px solid #444; color:#fff; border-radius:4px; box-sizing:border-box;">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" style="background:#d4af37; color:#000; font-weight:bold; border:none; padding:12px; border-radius:6px; cursor:pointer; margin-top:5px; font-size:15px; width:100%;">Plasează Comanda</button>
+        </form>
+    </div>
+</div>
+
+<!-- WIDGET CHATBOT AI -->
+<button class="ai-chat-btn" id="aiChatToggle" aria-label="Asistent AI">💬</button>
+<div class="ai-chat-window" id="aiChatWindow">
+  <div class="ai-chat-header">
+    <div class="ai-chat-title">
+      <div class="ai-chat-dot"></div>
+      <h3>Asistent Instrumentis</h3>
+    </div>
+    <button class="ai-chat-close" id="aiChatClose">&times;</button>
+  </div>
+  <div class="ai-chat-messages" id="aiChatMessages">
+    <div class="ai-msg bot">
+      Salut! Sunt asistentul tău virtual InstruMentis. Cu ce te pot ajuta legat de produsele, prețurile, comanda sau datele noastre de contact?
+    </div>
+  </div>
+  <div class="ai-chat-input-area">
+    <input type="text" id="aiChatInput" placeholder="Întreabă ceva despre site..." autocomplete="off">
+    <button class="ai-chat-send" id="aiChatSend">Trimite</button>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
