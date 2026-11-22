@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oferte de Crăciun | InstruMentis — Fiecare notă contează</title>
+  <link rel="stylesheet" href="craciun.css" />
+</head>
+<body>
+
+<!-- 1. ANIMAȚIE DE ÎNCEPUT CU BRAD ȘI CADOU CARE SE DESCHIDE -->
+<div class="intro-screen" id="introScreen">
+  <!-- Bradul tău împodobit pe fundal -->
+  <img src="assets/brad.jpg" alt="Brad de Crăciun" class="intro-tree">
+
+  <!-- Titlul și logo-ul sus -->
+  <div class="intro-header-group">
+    <div class="intro-ring">
+      <img src="assets/logo.jpg" alt="InstruMentis">
+    </div>
+    <div class="intro-eyebrow">InstruMentis • Ediție Limitată</div>
+    <h2 class="intro-title">Magia Crăciunului</h2>
+  </div>
+
+  <!-- Scena cu cele 3 cadouri -->
+  <div class="gifts-stage">
+    <!-- Cadou Stânga -->
+    <div class="gift-box side-gift left-gift">
+      <div class="gift-lid"><div class="gift-bow"></div></div>
+      <div class="gift-body"></div>
+    </div>
+
+    <!-- Cadou Mijloc (Vine spre ecran și se deschide) -->
+    <div class="gift-box hero-gift">
+      <div class="gift-light-burst"></div>
+      <div class="gift-lid"><div class="gift-bow"></div></div>
+      <div class="gift-body"></div>
+    </div>
+
+    <!-- Cadou Dreapta -->
+    <div class="gift-box side-gift right-gift">
+      <div class="gift-lid"><div class="gift-bow"></div></div>
+      <div class="gift-body"></div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- 2. NINSOARE PE FUNDAL -->
+  <canvas id="snowCanvas"></canvas>
+
+  <!-- 3. BARA DE SUS ȘI HEADER -->
+  <div class="top-banner">
+    🎄 EDIȚIE SPECIALĂ DE SĂRBĂTORI • LIVRARE GRATUITĂ LA PACHETELE CADOU 🎁
+  </div>
+
+  <header class="header">
+  <a href="index.html" class="brand-logo">
+    <img src="assets/logo.jpg" height="100" width="100" alt="Logo Instrumentis">
+  </a>
+  <a href="index.html" class="back-link">← Înapoi la site</a>
+</header>
+
+  <!-- 4. SECȚIUNEA HERO & NUMĂRĂTOARE INVERSĂ -->
+  <section class="hero">
+    <div class="festive-pill">✨ Oferte de Crăciun 2026</div>
+    <h1>Dăruiește emoție în <span>fiecare notă</span>.</h1>
+    <p>Am pregătit reduceri speciale la cele mai îndrăgite instrumente muzicale și pachete cadou gata de pus sub brad.</p>
+
+    <div class="countdown">
+      <div class="time-box"><b id="days">00</b><span>Zile</span></div>
+      <div class="time-box"><b id="hours">00</b><span>Ore</span></div>
+      <div class="time-box"><b id="minutes">00</b><span>Minute</span></div>
+      <div class="time-box"><b id="seconds">00</b><span>Secunde</span></div>
+    </div>
+
+    <div class="promo-code-box" id="copyCodeBtn" title="Click pentru a copia codul">
+      <span>Cod extra -10%:</span>
+      <code id="promoCode">CRACIUN26</code>
+      <span class="copy-badge" id="copyStatus">COPIAZĂ</span>
+    </div>
+  </section>
+
+  <!-- 5. GRID CU PACHETE ȘI OFERTE -->
+  <section class="offers-section">
+    <div class="section-header">
+      <span>Selecția Sărbătorilor</span>
+      <h2>Pachete și Instrumente la Preț Special</h2>
+    </div>
+
+   <div class="offers-grid">
+  <!-- Card 1 -->
+  <article class="offer-card">
+    <span class="discount-ribbon">-20%</span>
+    <div class="card-media">
+      <img src="assets/Chitară acustică.jpg" alt="Chitară Acustică">
+    </div>
+    <div class="card-body">
+      <span class="offer-cat">Pachet Cadou Complet</span>
+      <h3>Chitară Acustică + Husă & Accesorii</h3>
+      <p>Partenerul ideal pentru colindele de iarnă. Include chitara din molid și husa impermeabilă cu set de corzi.</p>
+      <ul class="perks">
+        <li>✓ Chitară acustică (COD: 102)</li>
+        <li>✓ Husă + set corzi cadou (COD: 602)</li>
+        <li>✓ Ambalare festivă inclusă</li>
+      </ul>
+      <div class="card-footer">
+        <div class="price-row">
+          <span class="old-price">600 LEI</span>
+          <span class="new-price">479 LEI</span>
+        </div>
+        <button class="btn-offer" data-offer="Pachet Chitară Acustică + Accesorii (479 LEI)">Rezervă oferta 🎁</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 2 -->
+  <article class="offer-card highlight">
+    <span class="discount-ribbon">-25% TOP</span>
+    <div class="card-media">
+      <img src="assets/Chitara electrica.jpg" alt="Chitară Electrică">
+    </div>
+    <div class="card-body">
+      <span class="offer-cat">Cel mai căutat cadou</span>
+      <h3>Chitară Electrică + Amplificator</h3>
+      <p>Tot ce ai nevoie pentru un concert acasă de sărbători. Ton puternic, grif din arțar și egalizator precis.</p>
+      <ul class="perks">
+        <li>✓ Chitară electrică 22 taste (COD: 101)</li>
+        <li>✓ Amplificator USB / AUX (COD: 601)</li>
+        <li>✓ Consultanță gratuită la alegere</li>
+      </ul>
+      <div class="card-footer">
+        <div class="price-row">
+          <span class="old-price">870 LEI</span>
+          <span class="new-price">649 LEI</span>
+        </div>
+        <button class="btn-offer" data-offer="Pachet Chitară Electrică + Amplificator (649 LEI)">Rezervă oferta 🎄</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 3 -->
+  <article class="offer-card">
+    <span class="discount-ribbon">-18%</span>
+    <div class="card-media">
+      <img src="assets/Vioara.jpg" alt="Vioară Clasică">
+    </div>
+    <div class="card-body">
+      <span class="offer-cat">Instrumente cu coarde</span>
+      <h3>Vioară Clasică InstruMentis</h3>
+      <p>Corp din lemn sculptat cu sunet cald și melancolic, pregătită pentru recitalurile de iarnă.</p>
+      <ul class="perks">
+        <li>✓ Lemn sculptat, țăruș metalic (COD: 103)</li>
+        <li>✓ Arcuș și sacâz incluse</li>
+        <li>✓ Livrare rapidă în 2–5 zile</li>
+      </ul>
+      <div class="card-footer">
+        <div class="price-row">
+          <span class="old-price">700 LEI</span>
+          <span class="new-price">570 LEI</span>
+        </div>
+        <button class="btn-offer" data-offer="Vioară Clasică InstruMentis (570 LEI)">Rezervă oferta ✨</button>
+      </div>
+    </div>
+  </article>
+</div>
+
+  </section>
+
+  <!-- 6. FEREASTRĂ REZERVARE OFERTĂ (MODAL) -->
+  <div class="modal-bg" id="offerModal">
+    <div class="modal-box">
+      <button class="modal-close" id="closeModalBtn">×</button>
+      <h3>Rezervă Oferta</h3>
+      <p id="selectedOfferName" class="modal-offer-title"></p>
+      <form id="offerForm">
+        <label>Nume și Prenume</label>
+        <input type="text" required placeholder="Ex: Popescu Andrei" />
+        <label>Telefon de contact</label>
+        <input type="tel" required placeholder="07xx xxx xxx" maxlength="10" />
+        <button type="submit" class="btn-offer">Confirmă rezervarea 🎅</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 7. FOOTER -->
+  <footer>
+    <p><strong class="gold-text">InstruMentis</strong> • Focșani, Bulevardul Gării 25, Vrancea, România</p>
+    <p>© 2026 InstruMentis • Proiect educațional (Firmă de exercițiu)</p>
+  </footer>
+
+  <script src="craciun.js"></script>
+</body>
+</html>

@@ -1,0 +1,885 @@
+@import url('https://googleapis.com');
+
+/* =========================================
+   1. VARIABILE & RESET
+   ========================================= */
+:root {
+  --bg: #070707;
+  --gold: #d8b45a;
+  --gold2: #f6e09e;
+  --red: #9e1b24;
+  --text: #f5f2ea;
+  --muted: #a6a096;
+  --line: rgba(216, 180, 90, 0.2);
+  --max: 1200px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+.gold-text { color: var(--gold); }
+
+/* =========================================
+   2. ANIMAȚIE DE ÎNCEPUT (SCENĂ DE CRĂCIUN)
+   ========================================= */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #050505;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 7vh 20px 9vh;
+  overflow: hidden;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+/* Vignette (umbră cinematografică pe margini ca să iasă textul în evidență) */
+.intro-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(10, 8, 7, 0.25) 0%, rgba(5, 5, 5, 0.85) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.intro-screen.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Poza de fundal întinsă pe tot ecranul fără margini tăiate */
+.intro-tree {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0.72;
+  z-index: 1;
+  pointer-events: none;
+  animation: roomZoom 4s ease-out forwards;
+}
+
+@keyframes roomZoom {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+
+/* Grupul de sus (Logo + Titlu) */
+.intro-header-group {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  animation: fadeHeaderOut 3.1s ease forwards;
+}
+
+.intro-ring {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: #080808;
+  margin-bottom: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 25px rgba(216, 180, 90, 0.45);
+}
+
+.intro-ring img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transform: scale(1.85);
+}
+
+.intro-eyebrow {
+  color: var(--gold2);
+  font-size: 11.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 1);
+}
+
+.intro-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 5.5vw, 60px);
+  margin: 6px 0 0;
+  background: linear-gradient(135deg, #fff8de 0%, #e6c36a 50%, #b88a28 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.95));
+}
+
+/* =========================================
+   SCENA CU CELE 3 CADOURI REALISTE PE COVOR
+   ========================================= */
+.gifts-stage {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* Umbra reală a cadourilor pe covor */
+.gifts-stage::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  height: 24px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, transparent 72%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gift-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Cadourile laterale */
+.side-gift {
+  width: 76px;
+  animation: sideGiftsFade 1.3s ease forwards 0.9s;
+}
+
+.side-gift .gift-lid {
+  width: 84px;
+  height: 19px;
+}
+
+.side-gift .gift-body {
+  width: 76px;
+  height: 66px;
+}
+
+.left-gift .gift-body,
+.left-gift .gift-lid {
+  background: linear-gradient(145deg, #1a4f37 0%, #0b2619 100%);
+}
+
+/* Cadoul principal din mijloc */
+.hero-gift {
+  width: 106px;
+  z-index: 10;
+  animation: heroGiftZoom 3.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.gift-lid {
+  position: relative;
+  width: 116px;
+  height: 24px;
+  background: linear-gradient(145deg, #b51d28 0%, #630b12 100%);
+  border: 1px solid rgba(246, 224, 158, 0.45);
+  border-radius: 4px;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.75);
+  z-index: 3;
+}
+
+/* Panglica aurie satinată de pe capac */
+.gift-lid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(90deg, #b88928, #fff0b8, #d8b45a);
+}
+
+/* Funda aurie 3D */
+.gift-bow {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 15px;
+}
+
+.gift-bow::before,
+.gift-bow::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 15px;
+  border: 3px solid #f6e09e;
+  border-radius: 50% 50% 0 50%;
+  background: linear-gradient(135deg, rgba(246, 224, 158, 0.45), rgba(184, 137, 40, 0.2));
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.gift-bow::before { left: 0; transform: rotate(-14deg); }
+.gift-bow::after { right: 0; border-radius: 50% 50% 50% 0; transform: rotate(14deg); }
+
+.gift-body {
+  position: relative;
+  width: 106px;
+  height: 92px;
+  background: linear-gradient(160deg, #a61923 0%, #4a070c 100%);
+  border: 1px solid rgba(246, 224, 158, 0.35);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  /* Umbra capacului peste cutie + umbra pe covor */
+  box-shadow: inset 0 8px 12px rgba(0, 0, 0, 0.65), 0 15px 28px rgba(0, 0, 0, 0.9);
+  z-index: 2;
+}
+
+/* Panglica verticală satinată */
+.gift-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(90deg, #b88928, #fff0b8, #d8b45a);
+}
+
+.hero-gift .gift-lid {
+  animation: lidPopOpen 3.1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.gift-light-burst {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #f6e09e 35%, rgba(216, 180, 90, 0) 72%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+  animation: burstExpand 3.1s ease-in forwards;
+}
+
+/* =========================================
+   KEYFRAMES
+   ========================================= */
+@keyframes sideGiftsFade {
+  to { opacity: 0; transform: translateY(20px) scale(0.85); }
+}
+
+@keyframes fadeHeaderOut {
+  0%, 45% { opacity: 1; transform: translateY(0); }
+  70%, 100% { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes heroGiftZoom {
+  0% { transform: translateY(0) scale(1); }
+  28% { transform: translateY(-8px) scale(1.04); }
+  62% { transform: translateY(-25vh) scale(2.4); }
+  100% { transform: translateY(-25vh) scale(2.55); }
+}
+
+@keyframes lidPopOpen {
+  0%, 60% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  80% { transform: translateY(-75px) translateX(18px) rotate(22deg); opacity: 1; }
+  100% { transform: translateY(-110px) translateX(28px) rotate(32deg); opacity: 0; }
+}
+
+@keyframes burstExpand {
+  0%, 64% { opacity: 0; transform: translate(-50%, -50%) scale(0.1); }
+  82% { opacity: 1; transform: translate(-50%, -50%) scale(4); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(22); }
+}
+
+
+/* =========================================
+   3. NINSOARE, HEADER & GHIRLANDĂ LUMINOASĂ
+   ========================================= */
+#snowCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.top-banner {
+  background: linear-gradient(90deg, #3b090d, #7a131b, #3b090d);
+  color: #f7e7c4;
+  text-align: center;
+  padding: 8px 15px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  border-bottom: 1px solid rgba(216, 180, 90, 0.3);
+}
+
+.header {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(22px, calc((100vw - var(--max)) / 2));
+  background: rgba(7, 7, 7, 0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.brand-logo img {
+  height: 52px;
+  object-fit: contain;
+}
+
+.brand-logo span {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.back-link {
+  border: 1px solid rgba(216, 180, 90, 0.4);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold2);
+  transition: all 0.25s ease;
+}
+
+.back-link:hover {
+  background: var(--gold);
+  color: #080808;
+}
+
+/* Ghirlandă luminoasă sub header */
+.light-rope {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: relative;
+  z-index: 35;
+}
+
+.light-rope li {
+  width: 8px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold2);
+  box-shadow: 0 4px 18px 4px rgba(246, 224, 158, 0.65);
+  animation: twinkle 2.4s infinite ease-in-out;
+}
+
+.light-rope li:nth-child(odd) {
+  background: #e03a45;
+  box-shadow: 0 4px 18px 4px rgba(224, 58, 69, 0.65);
+  animation-delay: 1.2s;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+/* =========================================
+   4. HERO & COUNTDOWN
+   ========================================= */
+.hero {
+  position: relative;
+  padding: 75px max(22px, calc((100vw - var(--max)) / 2)) 80px;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 780px;
+  height: 420px;
+  background: radial-gradient(ellipse at center, rgba(158, 27, 36, 0.32) 0%, rgba(216, 180, 90, 0.1) 45%, transparent 75%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.festive-pill {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 99px;
+  background: rgba(216, 180, 90, 0.08);
+  border: 1px solid rgba(216, 180, 90, 0.4);
+  color: var(--gold2);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 6.2vw, 74px);
+  line-height: 1.06;
+  margin: 0 auto 18px;
+  max-width: 840px;
+}
+
+.hero h1 span {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto 36px;
+  color: var(--muted);
+  font-size: 17.5px;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.time-box {
+  min-width: 86px;
+  padding: 15px 12px;
+  background: rgba(20, 18, 17, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(216, 180, 90, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.time-box b {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: var(--gold2);
+  line-height: 1.1;
+}
+
+.time-box span {
+  font-size: 10.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.promo-code-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(22, 19, 16, 0.9);
+  border: 1px dashed var(--gold);
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.promo-code-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(216, 180, 90, 0.18);
+}
+
+.promo-label { font-size: 13.5px; color: var(--muted); }
+
+.promo-code-box code {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold2);
+  letter-spacing: 0.12em;
+}
+
+.copy-badge {
+  background: var(--gold);
+  color: #080808;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 5px;
+}
+
+/* =========================================
+   5. CARDURI CU POZE REALE & EFECT DE LUMINĂ
+   ========================================= */
+.offers-section {
+  padding: 85px max(22px, calc((100vw - var(--max)) / 2));
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.section-header span {
+  color: var(--gold);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4.5vw, 46px);
+  margin: 8px 0 0;
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.offer-card {
+  position: relative;
+  background: linear-gradient(165deg, #141312 0%, #0a0a0a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--gold);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.85), 0 0 30px rgba(216, 180, 90, 0.15);
+}
+
+.offer-card.highlight {
+  border-color: rgba(216, 180, 90, 0.55);
+  background: linear-gradient(165deg, #211214 0%, #0c0b0b 100%);
+}
+
+/* Reflexie diagonală la hover */
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.offer-card:hover .card-shine {
+  left: 160%;
+}
+
+.discount-ribbon {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 4;
+  background: var(--red);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.gold-ribbon {
+  background: linear-gradient(135deg, #f3d88c, #c99d3b);
+  color: #080808;
+}
+
+/* Zona pozei instrumentului */
+.card-media {
+  height: 220px;
+  background: radial-gradient(circle at center, #1b1916 0%, #080808 85%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.7));
+}
+
+.offer-card:hover .card-media img {
+  transform: scale(1.08);
+}
+
+.card-body {
+  padding: 24px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.offer-cat {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.offer-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  margin: 6px 0 10px;
+  line-height: 1.2;
+}
+
+.offer-card p {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 0 0 18px;
+}
+
+.perks {
+  list-style: none;
+  padding: 14px 0 0;
+margin: 0 0 22px;
+border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.perks li {
+font-size: 13px;
+color: #ded9cf;
+margin-bottom: 6px;
+}
+.card-footer {
+margin-top: auto;
+}
+.price-row {
+display: flex;
+align-items: baseline;
+gap: 12px;
+margin-bottom: 16px;
+}
+.old-price {
+color: #777;
+text-decoration: line-through;
+font-size: 15px;
+}
+.new-price {
+color: var(--gold2);
+font-size: 27px;
+font-weight: 700;
+}
+.btn-offer {
+width: 100%;
+padding: 13px;
+border: none;
+border-radius: 8px;
+background: linear-gradient(135deg, #f3d88c 0%, #d8b45a 100%);
+color: #080808;
+font-weight: 700;
+font-size: 14px;
+cursor: pointer;
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-offer:hover {
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(216, 180, 90, 0.3);
+}
+/* =========================================
+6. MODAL & FOOTER
+========================================= */
+.modal-bg {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.85);
+backdrop-filter: blur(8px);
+display: none;
+align-items: center;
+justify-content: center;
+z-index: 100;
+padding: 20px;
+}
+.modal-bg.open { display: flex; }
+.modal-box {
+background: #121110;
+border: 1px solid var(--gold);
+border-radius: 16px;
+max-width: 440px;
+width: 100%;
+padding: 32px;
+position: relative;
+box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+}
+.modal-close {
+position: absolute;
+top: 14px;
+right: 16px;
+background: none;
+border: none;
+color: var(--muted);
+font-size: 26px;
+cursor: pointer;
+}
+.modal-tag {
+font-size: 10.5px;
+letter-spacing: 0.18em;
+color: var(--gold);
+font-weight: 700;
+}
+.modal-box h3 {
+font-family: 'Playfair Display', serif;
+font-size: 28px;
+margin: 4px 0 8px;
+color: var(--text);
+}
+.modal-offer-title {
+color: var(--gold2);
+font-weight: 600;
+font-size: 14px;
+margin-bottom: 18px;
+}
+.modal-box label {
+font-size: 13px;
+color: var(--muted);
+}
+.modal-box input {
+width: 100%;
+padding: 12px;
+margin: 6px 0 16px;
+background: #080808;
+border: 1px solid rgba(255, 255, 255, 0.12);
+border-radius: 6px;
+color: var(--text);
+}
+.modal-box input:focus {
+outline: none;
+border-color: var(--gold);
+}
+footer {
+text-align: center;
+padding: 40px 20px;
+border-top: 1px solid var(--line);
+color: #777;
+font-size: 13px;
+background: #040404;
+}
+/* =========================================
+7. RESPONSIVE
+========================================= */
+@media (max-width: 960px) {
+.offers-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+.offers-grid { grid-template-columns: 1fr; }
+.hero { padding-top: 55px; }
+}
+
+.intro-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: #000;
+  margin-bottom: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(216, 180, 90, 0.35);
+  animation: pulseGold 2s infinite ease-in-out;
+}
+
+.intro-ring img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transform: scale(1.85); /* Mărește cercul auriu ca să taie marginile negre */
+}
+
+/* Stiluri pentru pozele din cardurile de Crăciun */
+.offer-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.card-media {
+  height: 210px;
+  background: radial-gradient(circle at center, #1d1a16 0%, #090909 85%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.45s ease;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.75));
+}
+
+.offer-card:hover .card-media img {
+  transform: scale(1.08);
+}
+
+.card-body {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-footer {
+  margin-top: auto;
+}
